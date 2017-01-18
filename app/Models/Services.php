@@ -10,12 +10,12 @@ class Services extends Model implements ModuleInterface
 
     public function getServices()
     {
-        $services['any'] = 'Любое';
-        foreach (self::get() as $value) {
-            $services[$value->id] = $value->title;
-        }
+//        $services['any'] = 'Любое';
+//        foreach (self::get() as $value) {
+//            $services[$value->id] = $value->title;
+//        }
 
-        return $services;
+        return self::all();
     }
 
     public function getAttributes()

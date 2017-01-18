@@ -1,13 +1,17 @@
 <?php
 
-namespace app\Http\Controllers;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\AbstractControllers\CRUDController;
+use App\Models\Cities;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Facades\View;
 
 class CityController extends CRUDController
 {
+
+    public $city_name;
 
     protected $module_name = 'App\Models\Cities';
 
@@ -23,5 +27,17 @@ class CityController extends CRUDController
     public function __construct()
     {
         parent::__construct();
+    }
+
+    static public function cityMetaInfo($name = NULL)
+    {
+        $date = Cities::getMetaInfo($name);
+
+        View::share('meta', $date);
+    }
+
+    public function citesWithProviders()
+    {
+        return $this->module->getCityByProviders();
     }
 }

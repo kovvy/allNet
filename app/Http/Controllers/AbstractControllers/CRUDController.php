@@ -29,16 +29,6 @@ abstract class CRUDController extends Controller
         $this->instance($this->module_name,  $this->view_folder_name);
     }
 
-    public function __get($name)
-    {
-        //TODO
-    }
-
-    public function __set($name)
-    {
-        //TODO
-    }
-
     public function index()
     {
         $records = $this->module->all();
@@ -167,8 +157,8 @@ abstract class CRUDController extends Controller
         if ($route = explode('.', \Route::currentRouteName()))
         {
            $this->route = [
-               'route' => $route[0],
-               'action' => $route[1]
+               'route' => isset($route[0]) ? $route[0] : NULL ,
+               'action' => isset($route[1]) ? $route[1] : NULL
            ];
         }
 

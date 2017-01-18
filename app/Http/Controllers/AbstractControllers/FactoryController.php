@@ -2,6 +2,13 @@
 
 namespace app\Http\Controllers\AbstractControllers;
 
+use App\Http\Controllers\ConnectionController;
+use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\TarifController;
+use App\Http\Controllers\CityController;
+
 class FactoryController
 {
 

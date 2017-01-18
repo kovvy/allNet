@@ -17,11 +17,15 @@ class Cities extends Model implements ModuleInterface
         return ! empty($city = self::where('link', $link)->first()) ? $city->id : null;
     }
     
-    public static function getMetaInfo($name = NULL)
+    static public function getMetaInfo($name = NULL)
     {
         if($name === NULL)
         {
-            return self::where('name', 'Украина')->first();
+            return new self([
+                'name' => "Украина",
+                'name_in' => "в Украине",
+                "name_from" => "Украины"
+            ]);
         }
 
         return self::where('link', $name)->first();
@@ -29,17 +33,11 @@ class Cities extends Model implements ModuleInterface
 
     public function getCityByProviders()
     {
-        $city['city'] = self::join('providers', 'cities.id', '=', 'providers.city')
-                            ->distinct()
-                            ->orderBy('cities.name', 'asc')
-                            ->select('cities.id as id', 'cities.name as name', 'cities.name_in as name_in', 'cities.link as link')->get();
-
-        $city['regions'][0] = 'Вся Украина';
-        foreach ($city['city'] as $value) {
-            $city['regions'][$value->id] = $value->name;
-        }
-
-        return $city;
+        return self::join('providers', 'cities.id', '=', 'providers.city')
+                    ->distinct()
+                    ->orderBy('cities.name', 'asc')
+                    ->select('cities.id as id', 'cities.name as name', 'cities.name_in as name_in', 'cities.link as link')
+                    ->get();
     }
 
     public static function getCityByLink($link)

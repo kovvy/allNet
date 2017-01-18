@@ -34,6 +34,29 @@ class ProviderController extends CRUDController
         }
 
         parent::store($request, $fields);
+
+    }
+
+    public function provider($city_name = NULL, $provider_name = NULL)
+    {
+        if ($city_name OR $provider_name)
+        {
+
+            $provider = $this->module->getProvider($city_name, $provider_name);
+
+        } else {
+
+            $provider = $this->module->getRandomProviders();
+
+        }
+
+        if (!$provider)
+        {
+            abort(404);
+        }
+
+        return $provider;
+
     }
 
 }
